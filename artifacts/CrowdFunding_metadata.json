@@ -9,37 +9,17 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_deadline",
+						"name": "_target",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_target",
+						"name": "_deadline",
 						"type": "uint256"
 					}
 				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
-			},
-			{
-				"inputs": [],
-				"name": "checkBalance",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "contributeEther",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
 			},
 			{
 				"inputs": [
@@ -49,7 +29,7 @@
 						"type": "address"
 					}
 				],
-				"name": "contributers",
+				"name": "contributors",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -68,14 +48,14 @@
 						"type": "string"
 					},
 					{
-						"internalType": "uint256",
-						"name": "_value",
-						"type": "uint256"
-					},
-					{
 						"internalType": "address payable",
 						"name": "_recipient",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_value",
+						"type": "uint256"
 					}
 				],
 				"name": "createRequests",
@@ -86,6 +66,19 @@
 			{
 				"inputs": [],
 				"name": "deadline",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getContractBalance",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -124,7 +117,20 @@
 			},
 			{
 				"inputs": [],
-				"name": "noOfContibuters",
+				"name": "minimumContribution",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "noOfContributors",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -150,7 +156,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "raisedMoney",
+				"name": "raisedAmount",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -184,14 +190,14 @@
 						"type": "string"
 					},
 					{
-						"internalType": "uint256",
-						"name": "value",
-						"type": "uint256"
-					},
-					{
 						"internalType": "address payable",
 						"name": "recipient",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
 					},
 					{
 						"internalType": "bool",
@@ -205,6 +211,13 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "sendEth",
+				"outputs": [],
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -247,7 +260,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"crowd funding.sol": "crowdFunding"
+			"crowd funding.sol": "CrowdFunding"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -262,11 +275,11 @@
 	},
 	"sources": {
 		"crowd funding.sol": {
-			"keccak256": "0x19b9cbf2183ad185595e442da015aee56776fc70a986dd8f6899091c566e6714",
+			"keccak256": "0xbb8e45cd8ef568df41cf76ae0102f0dcfda47993416d94fbdc0b8b67e040fbfc",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://e60eba9b1b6cea27688ef167b3d09ad056ebcfec8d9fce0ed17d5812447856c5",
-				"dweb:/ipfs/QmRYdYMQ4j5PuA1JKcBbtNK9Wpvof1YRfobAKS8UwYeTPw"
+				"bzz-raw://efe464cf89c5c985f44a2bfa225a45a9d73bc2645c63074cc0d57721e15d2644",
+				"dweb:/ipfs/QmPczHBvrrPLhoG31YqdY9QTc5JFdNrRkMakVRe5wxBe5j"
 			]
 		}
 	},

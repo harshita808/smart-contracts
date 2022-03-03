@@ -3,11 +3,11 @@ pragma solidity >=0.5.0 < 0.9.0;
 
 contract crowdFunding{
    mapping(address=>uint) public contributers;     //contributers[msg.sender] represents ether they have sent
-   address manager;
-   uint deadline;
-   uint raisedMoney;
-   uint target;
-   uint noOfContibuters;
+   address public manager;
+   uint public deadline;
+   uint public raisedMoney;
+   uint public target;
+   uint public noOfContibuters;
 
    struct Request{
        string description;
@@ -20,13 +20,14 @@ contract crowdFunding{
    }
 
    mapping(uint=>Request) public requests;
-
+   uint public numRequests;
 
 
    constructor (uint _deadline, uint _target){
        manager=msg.sender;
        deadline= block.timestamp+ _deadline;  //10sec+3600sec
        target= _target;
+       
 
    }
 
@@ -49,15 +50,21 @@ contract crowdFunding{
 
     function refund() public{
         require(block.timestamp>deadline && raisedMoney<target,"Cannot refund");
-        require(contributers[msg.sender]>0,"Cannot refund as don't contribute any");   //to avoid 2nd time refund for the same contributor
-        address payable user;
+        require(contributers[msg.sender]>0,"Cannot refund as you didn't contribute");   //to avoid 2nd time refund for the same contributor
+        address payable user=payable(msg.sender);
         user.transfer(contributers[msg.sender]);
         contributers[msg.sender]=0;
         
     }
+     modifier onlyManger(){     //lets us escape writing require again n again in every function
+        require(msg.sender==manager,"Only manager can call this function");
+        _;
+    }
 
-    function makeRequest(string memory _description,uint _value, address payable _recipient) public {
-           Request memory newRequest= requests;
+
+    function createRequests(string memory _description,uint _value, address payable _recipient) public onlyManger {
+           Request storage newRequest= requests[numRequests];
+           numRequests++;
            newRequest.description=_description;
            newRequest.value=_value;
            newRequest.recipient=_recipient;
@@ -65,7 +72,22 @@ contract crowdFunding{
            newRequest.noOfVoters=0;
     }
 
-    function voting() public{
+    function voteRequest(uint _requestNo) public{
+        require(contributers[msg.sender]>0,"You are not a contributor");
+        Request storage thisRequest=requests[_requestNo];
+        require(thisRequest.voters[msg.sender]==false,"You have already voted");
+        thisRequest.voters[msg.sender]=true;
+        thisRequest.noOfVoters++;
+        
+    }
+
+    function makePayment(uint _requestNo) public onlyManger{
+        require(raisedMoney>=target,"Target not reached");
+        Request storage thisRequest=requests[_requestNo];
+        require(thisRequest.completed==false,"The request has been completed");
+        require(thisRequest.noOfVoters>noOfContibuters/2,"Majority doesnot support");    //if a requests get more than 50% votes then its a majority
+        thisRequest.recipient.transfer(thisRequest.value);
+        thisRequest.completed=true;
         
     }
 }
